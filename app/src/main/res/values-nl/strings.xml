@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">What to Cook</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="my_ingredients">Mijn ingredienten</string>
+    <string name="delete">VERWIJDEREN</string>
+    <string name="navigation_drawer_open">Open navigatie</string>
+    <string name="navigation_drawer_close">Sluit navigatie</string>
+    <string name="recipe_title">Naam</string>
+    <string name="recipe_description">Beschrijving</string>
+    <string name="nav_header_desc">Navigatie hoofd</string>
+</resources>

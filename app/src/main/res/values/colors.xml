@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00cc00</color>
+    <color name="colorPrimaryDark">#009900</color>
+    <color name="colorAccent">#cc00cc</color>
+    <color name="bg_row_background">#aa00aa</color>
+    <color name="item_name">#535353</color>
+    <color name="description">#b3b3b3</color>
+    <color name="delete_background">#cc0000</color>
+</resources>
