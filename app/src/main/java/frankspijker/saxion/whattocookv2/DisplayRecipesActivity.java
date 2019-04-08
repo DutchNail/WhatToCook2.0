@@ -46,7 +46,7 @@ public class DisplayRecipesActivity extends AppCompatActivity implements Recycle
         recyclerView.setHasFixedSize(true);
 
         recipesList = new ArrayList<>();
-
+        getRecipes();
         recipesList = RecipesProvider.getRecipesList();
         mAdapter = new RecipeListAdapter(this);
         layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -62,11 +62,13 @@ public class DisplayRecipesActivity extends AppCompatActivity implements Recycle
     }
 
     private void getRecipes() {
-        List<Ingredient> ingredientList = new ArrayList<>();
-        Ingredient i = new Ingredient("Water", 50, Ingredient.AmountType.deciliter);
-        ingredientList.add(i);
-        Recipes r = new Recipes("pizza", "lekker", ingredientList);
-        RecipesProvider.addItem(r);
+        if(RecipesProvider.getSize() == 0) {
+            List<Ingredient> ingredientList = new ArrayList<>();
+            Ingredient i = new Ingredient("Water", 50, Ingredient.AmountType.deciliter);
+            ingredientList.add(i);
+            Recipes r = new Recipes("pizza", "lekker", ingredientList);
+            RecipesProvider.addItem(r);
+        }
     }
 
     private void setNavigation() {

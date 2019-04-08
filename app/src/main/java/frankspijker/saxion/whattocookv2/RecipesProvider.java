@@ -23,6 +23,10 @@ public class RecipesProvider {
         return recipesList;
     }
 
+    public static int getSize() {
+        return recipesList.size();
+    }
+
     public static void setRecipesList(List<Recipes> recipesList) {
         RecipesProvider.recipesList = recipesList;
     }

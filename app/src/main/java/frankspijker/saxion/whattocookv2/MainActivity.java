@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
 
         ingredientList = new ArrayList<>();
         prepareIngredients();
+        ingredientList = IngredientProvider.getIngredientList();
         mAdapter = new IngredientListAdapter(ingredientList, this);
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -72,11 +73,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
      * mathod make volley network call and parses json
      */
     private void prepareIngredients() {
-        Ingredient i = new Ingredient("Water", 50, Ingredient.AmountType.deciliter);
-        Ingredient j = new Ingredient("Kipfilet", 300, Ingredient.AmountType.gram);
-        ingredientList.add(i);
-        ingredientList.add(j);
-
+        if(IngredientProvider.getSize() == 0) {
+            Ingredient i = new Ingredient("Water", 50, Ingredient.AmountType.deciliter);
+            Ingredient j = new Ingredient("Kipfilet", 300, Ingredient.AmountType.gram);
+            IngredientProvider.addIngredient(i);
+            IngredientProvider.addIngredient(j);
+        }
         //TODO: doe ff json dan.
     }
 

@@ -15,6 +15,7 @@ import java.util.List;
 public class AddRecipeIngredientAdapter extends RecyclerView.Adapter<AddRecipeIngredientAdapter.MyViewHolder>  {
     private Context context;
     private List<Ingredient> ingredientList;
+    private List<Ingredient> addedIngredients;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -24,13 +25,13 @@ public class AddRecipeIngredientAdapter extends RecyclerView.Adapter<AddRecipeIn
         public MyViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.addRecipeName);
-            description = view.findViewById(R.id.addRecipeDescription);
-            addButton = view.findViewById(R.id.addButton);
+//            description = view.findViewById(R.id.addRecipeDescription);
+//            addButton = view.findViewById(R.id.addButton);
         }
     }
 
     public AddRecipeIngredientAdapter(List<Ingredient> ingredientList, Context context) {
-        this.ingredientList = ingredientList;
+        this.ingredientList = IngredientProvider.getIngredientList();
         this.context = context;
     }
 
@@ -44,13 +45,16 @@ public class AddRecipeIngredientAdapter extends RecyclerView.Adapter<AddRecipeIn
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final Ingredient ingredient = ingredientList.get(position);
         holder.name.setText(ingredient.getName());
-        holder.description.setText(ingredient.getAmount() + " " + ingredient.getAmountType());
-
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return ingredientList.size();
+    }
+
+    public void addIngredient(int position) {
+        addedIngredients.add(ingredientList.get(position));
+        notifyItemInserted(position);
     }
 
 

@@ -19,6 +19,10 @@ class IngredientProvider {
         IngredientProvider.ingredientList = ingredientList;
     }
 
+    public static int getSize() {
+        return ingredientList.size();
+    }
+
     public static void addIngredient(Ingredient ingredient) {
         ingredientList.add(ingredient);
     }

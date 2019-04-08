@@ -9,7 +9,7 @@
     android:paddingBottom="@dimen/row_padding_vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/row_padding_vertical">>
+    android:paddingTop="@dimen/row_padding_vertical">
 
     <TextView
         android:id="@+id/addRecipeName"
@@ -25,17 +25,18 @@
     <EditText
         android:id="@+id/addRecipeDescription"
         android:layout_width="160dp"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:layout_alignStart="@+id/addRecipeName"
         android:layout_alignTop="@+id/addRecipeName"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="29dp" />
+        android:layout_marginTop="29dp"
+        android:inputType="number" />
 
     <TextView
         android:id="@+id/placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/addButton"
@@ -43,6 +44,7 @@
         android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:layout_marginEnd="4dp"
-        android:layout_toStartOf="@+id/placeholder" />
+        android:layout_toStartOf="@+id/placeholder"
+        android:onClick="addIngredientButton" />
 
 </RelativeLayout>

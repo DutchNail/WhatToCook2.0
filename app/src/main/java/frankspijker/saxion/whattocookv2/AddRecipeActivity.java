@@ -1,6 +1,7 @@
 package frankspijker.saxion.whattocookv2;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -23,7 +24,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     private RecyclerView addIngredients;
     private AddRecipeIngredientAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private List<Ingredient> ingredientList;
+    public List<Ingredient> ingredientList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,12 @@ public class AddRecipeActivity extends AppCompatActivity {
         addIngredients.setHasFixedSize(true);
 
         ingredientList = new ArrayList<>();
-        ingredientList = IngredientProvider.getIngredientList();
-        layoutManager = new LinearLayoutManager(getApplicationContext());
+        Ingredient i = new Ingredient("test",1, Ingredient.AmountType.centiliter);
+//        IngredientProvider.addIngredient(i);
+//        ingredientList = IngredientProvider.getIngredientList();
+        ingredientList.add(i);
+        mAdapter = new AddRecipeIngredientAdapter(ingredientList, this);
+        layoutManager = new LinearLayoutManager(this);
         addIngredients.setLayoutManager(layoutManager);
         addIngredients.setItemAnimator(new DefaultItemAnimator());
         addIngredients.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
@@ -56,5 +61,14 @@ public class AddRecipeActivity extends AppCompatActivity {
         RecipesProvider.addItem(r);
         Intent intent = new Intent(this, DisplayRecipesActivity.class);
         startActivity(intent);
+    }
+
+    public void addIngredient(RecyclerView.ViewHolder viewHolder, int position) {
+        if(viewHolder instanceof AddRecipeIngredientAdapter.MyViewHolder) {
+            String name = ingredientList.get(viewHolder.getAdapterPosition()).getName();
+            mAdapter.addIngredient(position);
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.addRecipeRecyclerview), name + " deleted at position" + position, Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
     }
 }
