@@ -13,4 +13,15 @@
     <string name="ingredient_amount">Amount</string>
     <string name="button_ingredient_add">Add Ingredient</string>
     <string name="button_recipe_add">Add recipe</string>
+    <string name="undo">UNDO</string>
+    <string-array name="amount_types">
+        <item>Kilogram</item>
+        <item>Gram</item>
+        <item>miligram</item>
+        <item>Liter</item>
+        <item>Mililiter</item>
+        <item>centiliter</item>
+        <item>deciliter</item>
+        <item>pieces</item>
+    </string-array>
 </resources>

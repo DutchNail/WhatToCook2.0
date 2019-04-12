@@ -58,7 +58,8 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
     public void saveRecipe(View v) {
-        //TODO: Opslaan recepten fixen
+        recipeName = nameEdittext.getText().toString();
+        recipeDescription = descriptionEdittext.getText().toString();
         recipe.setTitle(recipeName);
         recipe.setDescription(recipeDescription);
         RecipesProvider.addItem(recipe);

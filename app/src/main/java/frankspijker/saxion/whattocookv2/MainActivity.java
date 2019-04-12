@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "replace", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(v.getContext(), AddIngredientActivity.class);
+                startActivity(i);
             }
         });
 
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
 
             // show snackbar with undo
             Snackbar snackbar = Snackbar.make(findViewById(R.id.my_recycler_view), name + " deleted.", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
+            snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mAdapter.restoreIngredient(deletedIngredient, deletedIndex);

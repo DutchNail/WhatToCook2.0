@@ -1,5 +1,6 @@
 package frankspijker.saxion.whattocookv2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipes {
@@ -17,6 +18,16 @@ public class Recipes {
         this.title = title;
         this.description = description;
         this.ingredientList = ingredientList;
+    }
+
+    public static Recipes getRecipeById(int recipeId) {
+        List<Recipes> recipes = RecipesProvider.getRecipesList();
+        for (Recipes recipe: recipes) {
+            if(recipe.getId() == recipeId) {
+                return recipe;
+            }
+        }
+        return null;
     }
 
     public int getId() {
@@ -52,5 +63,9 @@ public class Recipes {
             return this.ingredientList;
         }
         return null;
+    }
+
+    public void addIngredient(Ingredient i) {
+        this.ingredientList.add(i);
     }
 }

@@ -12,4 +12,5 @@
     <string name="ingredient_amount">Hoeveelheid</string>
     <string name="button_ingredient_add">Ingredient toevoegen</string>
     <string name="button_recipe_add">Recept toevoegen</string>
+    <string name="undo">ONGEDAAN MAKEN</string>
 </resources>
