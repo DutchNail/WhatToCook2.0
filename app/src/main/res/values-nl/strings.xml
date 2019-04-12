@@ -9,4 +9,7 @@
     <string name="recipe_title">Naam</string>
     <string name="recipe_description">Beschrijving</string>
     <string name="nav_header_desc">Navigatie hoofd</string>
+    <string name="ingredient_amount">Hoeveelheid</string>
+    <string name="button_ingredient_add">Ingredient toevoegen</string>
+    <string name="button_recipe_add">Recept toevoegen</string>
 </resources>

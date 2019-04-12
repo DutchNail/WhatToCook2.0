@@ -4,15 +4,23 @@ import java.util.List;
 
 public class Recipes {
 
+    private static int idcounter;
+    private int id;
     private String title;
     private String description;
     private List<Ingredient> ingredientList;
 
 
+
     public Recipes(String title, String description, List<Ingredient> ingredientList) {
+        this.id = idcounter++;
         this.title = title;
         this.description = description;
         this.ingredientList = ingredientList;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

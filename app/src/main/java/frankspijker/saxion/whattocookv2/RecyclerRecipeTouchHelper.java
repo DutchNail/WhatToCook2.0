@@ -1,7 +1,6 @@
 package frankspijker.saxion.whattocookv2;
 
 import android.graphics.Canvas;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;

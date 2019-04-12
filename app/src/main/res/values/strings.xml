@@ -10,5 +10,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="recipe_title">Name</string>
     <string name="recipe_description">Description</string>
-
+    <string name="ingredient_amount">Amount</string>
+    <string name="button_ingredient_add">Add Ingredient</string>
+    <string name="button_recipe_add">Add recipe</string>
 </resources>

@@ -2,7 +2,8 @@ package frankspijker.saxion.whattocookv2;
 
 public class Ingredient {
 
-
+    private static int idcounter;
+    private int id;
     private String name;
     private int amount;
     public enum AmountType {
@@ -14,6 +15,7 @@ public class Ingredient {
 
 
     public Ingredient(String name, int amount, AmountType amountType) {
+        this.id = idcounter++;
         this.name = name;
         this.amount = amount;
         this.amountType = amountType;

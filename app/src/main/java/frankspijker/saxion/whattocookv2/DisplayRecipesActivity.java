@@ -1,7 +1,6 @@
 package frankspijker.saxion.whattocookv2;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -136,10 +135,6 @@ public class DisplayRecipesActivity extends AppCompatActivity implements Recycle
         } else if (id == R.id.nav_recipes) {
             Intent i = new Intent(this, DisplayRecipesActivity.class);
             startActivity(i);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -174,10 +174,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
         } else if (id == R.id.nav_recipes) {
             Intent i = new Intent(this, DisplayRecipesActivity.class);
             startActivity(i);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

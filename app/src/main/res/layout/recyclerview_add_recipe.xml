@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/row_padding_vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/row_padding_vertical"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/row_padding_vertical">
+    android:paddingBottom="@dimen/row_padding_vertical">
 
     <TextView
         android:id="@+id/addRecipeName"
@@ -30,6 +30,7 @@
         android:layout_alignTop="@+id/addRecipeName"
         android:layout_marginStart="0dp"
         android:layout_marginTop="29dp"
+        android:autofillHints="@string/ingredient_amount"
         android:inputType="number" />
 
     <TextView
@@ -40,11 +41,11 @@
 
     <Button
         android:id="@+id/addButton"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:layout_marginEnd="4dp"
-        android:layout_toStartOf="@+id/placeholder"
-        android:onClick="addIngredientButton" />
+        android:layout_toStartOf="@+id/placeholder" />
 
 </RelativeLayout>

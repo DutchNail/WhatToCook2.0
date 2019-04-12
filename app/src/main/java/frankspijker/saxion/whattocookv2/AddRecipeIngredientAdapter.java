@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class AddRecipeIngredientAdapter extends RecyclerView.Adapter<AddRecipeIngredientAdapter.MyViewHolder>  {
+public class AddRecipeIngredientAdapter extends RecyclerView.Adapter<AddRecipeIngredientHolder>  {
     private Context context;
     private List<Ingredient> ingredientList;
     private List<Ingredient> addedIngredients;
+    View.OnClickListener clickListener;
+    OnAddButtonItemClickListener addButtonListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -35,14 +37,37 @@ public class AddRecipeIngredientAdapter extends RecyclerView.Adapter<AddRecipeIn
         this.context = context;
     }
 
+    public void setOnItemClickListener(View.OnClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public void setAddButtonListener(OnAddButtonItemClickListener addButtonListener) {
+        this.addButtonListener = addButtonListener;
+    }
+
+
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AddRecipeIngredientHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_add_recipe, parent, false);
-        return new MyViewHolder(itemView);
+        return new AddRecipeIngredientHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(AddRecipeIngredientHolder holder, final int position) {
+        if(clickListener != null) {
+            holder.itemView.setOnClickListener(clickListener);
+        }
+
+        if(addButtonListener != null) {
+            AddRecipeIngredientHolder myHolder = (AddRecipeIngredientHolder) holder;
+            myHolder.getAddButton().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addButtonListener.onAddIsClick(v, position);
+                }
+            });
+        }
+
         final Ingredient ingredient = ingredientList.get(position);
         holder.name.setText(ingredient.getName());
     }
@@ -55,6 +80,11 @@ public class AddRecipeIngredientAdapter extends RecyclerView.Adapter<AddRecipeIn
     public void addIngredient(int position) {
         addedIngredients.add(ingredientList.get(position));
         notifyItemInserted(position);
+    }
+
+    public Ingredient getIngredient(int position) {
+        Ingredient ingredient = ingredientList.get(position);
+        return ingredient;
     }
 
 
