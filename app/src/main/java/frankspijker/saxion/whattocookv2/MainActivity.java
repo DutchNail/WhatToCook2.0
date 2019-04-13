@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
         ingredientList = new ArrayList<>();
         prepareIngredients();
         ingredientList = IngredientProvider.getIngredientList();
-        mAdapter = new IngredientListAdapter(ingredientList, this);
+        mAdapter = new IngredientListAdapter(ingredientList, this, false);
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

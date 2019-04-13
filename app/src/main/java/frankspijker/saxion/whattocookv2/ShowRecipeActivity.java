@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-class ShowRecipeActivity extends AppCompatActivity {
+class ShowRecipeActivity extends AppCompatActivity implements RecyclerIngredientTouchHelper.RecyclerItemTouchHelperListener {
 
     public static final String NAMEKEY = "namekey";
     public static final String DESCRIPTIONKEY =  "descriptionkey";
@@ -55,7 +55,7 @@ class ShowRecipeActivity extends AppCompatActivity {
 
         showRecipeRecyclerview = findViewById(R.id.ShowRecipeRecyclerview);
         showRecipeRecyclerview.hasFixedSize();
-        showRecipeAdapter = new IngredientListAdapter(ingredientList, this);
+        showRecipeAdapter = new IngredientListAdapter(ingredientList, this, true);
         layoutManager = new LinearLayoutManager(getApplicationContext());
         showRecipeRecyclerview.setLayoutManager(layoutManager);
         showRecipeRecyclerview.setItemAnimator(new DefaultItemAnimator());

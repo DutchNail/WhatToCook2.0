@@ -16,17 +16,18 @@ public class AddIngredientActivity extends AppCompatActivity {
     public static final String IDKEY = "idkey";
     public static final String EDITKEY = "editkey";
     public Spinner spinner;
+    public Ingredient ingredientToEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO: Add Ingredient fixen bij recepten fixen.
+        //TODO: ProgressBar die bijhoudt welke velden al zijn ingevuld.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ingredient);
         EditText ingredientName = (EditText) findViewById(R.id.ingredientNameEdittext);
         EditText ingredientAmount = (EditText) findViewById(R.id.ingredientAmountEdittext);
         Intent intent = getIntent();
         if(intent.hasExtra(EDITKEY)) {
-            final Ingredient ingredientToEdit = Ingredient.getIngredientById(intent.getFlags());
+            ingredientToEdit = Ingredient.getIngredientById(intent.getFlags());
             Log.e("ingredientInfo", ingredientToEdit.toString());
             String name = ingredientToEdit.getName();
             double amount = ingredientToEdit.getAmount();
@@ -45,18 +46,13 @@ public class AddIngredientActivity extends AppCompatActivity {
 
 
     public void saveIngredient(View view) {
-        //TODO: Crash't bij opslaan vanuit recept
-        // zowel vanuit mainactivity(Ingredienten overview
-        // dus zonder dat ie hem toevoegd aan recept
-        // als wanneer je hem vanuit het recept wil toevoegen
-        //idee: Vanuit recept moet hij hem ook toevoegen aan de Recipes.ingredientList
-        // vanuit ingredientOverview(MainActivity) gewoon opslaan.
         EditText ingredientName = (EditText) findViewById(R.id.ingredientNameEdittext);
         EditText ingredientAmount = (EditText) findViewById(R.id.ingredientAmountEdittext);
         String name = ingredientName.getText().toString();
         String value = ingredientAmount.getText().toString();
-        double amount = Integer.parseInt(value);
+        double amount = Double.parseDouble(value);
         String amountType = spinner.getSelectedItem().toString();
+        //TODO: Spinner default veranderen, checken of er een artikel gekozen is. (Optioneel)
         Ingredient i = new Ingredient(name, amount, amountType);
         Intent intent = getIntent();
         if(intent.hasExtra(IDKEY)) {
@@ -69,12 +65,11 @@ public class AddIngredientActivity extends AppCompatActivity {
             backToRecipe.putExtra(ShowRecipeActivity.IDKEY, intent.getFlags());
             startActivity(backToRecipe);
         } else if(intent.hasExtra(EDITKEY)) {
-            Ingredient ingredientToEdit = Ingredient.getIngredientById(intent.getFlags());
+//            Ingredient ingredientToEdit = Ingredient.getIngredientById(intent.getFlags());
             ingredientToEdit.setName(name);
             ingredientToEdit.setAmount(amount);
-            Intent backToOverview = new Intent(this, MainActivity.class);
+            Intent backToOverview = new Intent(this, ShowIngredientActivity.class);
             backToOverview.setFlags(ingredientToEdit.getId());
-            backToOverview.putExtra(ShowIngredientActivity.IDKEY, ingredientToEdit.getId());
             startActivity(backToOverview);
         } else {
             IngredientProvider.addIngredient(i);

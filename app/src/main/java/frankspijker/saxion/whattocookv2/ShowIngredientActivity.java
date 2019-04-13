@@ -15,6 +15,7 @@ import java.util.Objects;
 
 public class ShowIngredientActivity extends AppCompatActivity {
     public static final String IDKEY = "ShowIngredientIdKey";
+    public static final String INGREDIENTKEY = "INGREDIENTKEY";
     public FloatingActionButton fab;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,6 @@ public class ShowIngredientActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Ingredient ingredient = Ingredient.getIngredientById(intent.getFlags());
         String ingredientName  = ingredient.getName();
-//        String ingredientAmount  = ingredient.getAmount() + " " + ingredient.getType();
         Double amount = ingredient.getAmount();
         String amountType = ingredient.getType();
         informationView.setIngredientInformation(ingredientName, amount, amountType);
@@ -44,10 +44,11 @@ public class ShowIngredientActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), AddIngredientActivity.class);
                 intent.putExtra(AddIngredientActivity.EDITKEY, AddIngredientActivity.EDITKEY);
                 intent.setFlags(ingredient.getId());
-//                Log.e("ingredient ID", ingredient.getId()+"");
                 startActivity(intent);
             }
         });
+
+        //TODO: Recept waarin dit ingredient verwerkt wordt tonen(Optioneel)
     }
 
 

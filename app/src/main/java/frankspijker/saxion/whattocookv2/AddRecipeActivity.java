@@ -33,16 +33,13 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO: ProgressBar die bijhoudt welke velden al zijn ingevuld.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
-
         nameTextview = findViewById(R.id.recipeNameTextview);
         nameEdittext = findViewById(R.id.recipeNameEdittext);
         descriptionTextview = findViewById(R.id.recipeDescriptionTextview);
         descriptionEdittext = findViewById(R.id.recipeDescriptionEdittext);
-//        // TODO: Ingredienten toevoegen aan recepten
-//        // TODO: Custom progressbar die bijhoudt of er een naam, beschrijving en minimaal 1 ingredient is gekozen onderin.
-//        // TODO: CUSTOM VIEW PLZ
     }
 
     public void saveRecipe(View v) {
@@ -52,14 +49,6 @@ public class AddRecipeActivity extends AppCompatActivity {
         recipe = new Recipes(recipeName, recipeDescription, ingredientList);
         RecipesProvider.addItem(recipe);
         Intent intent = new Intent(this, DisplayRecipesActivity.class);
-        startActivity(intent);
-    }
-
-
-    public void addIngredient(View v) {
-        Intent intent = new Intent(this, AddIngredientActivity.class);
-        intent.putExtra(AddIngredientActivity.IDKEY, AddIngredientActivity.IDKEY);
-        intent.setFlags(recipe.getId());
         startActivity(intent);
     }
 }

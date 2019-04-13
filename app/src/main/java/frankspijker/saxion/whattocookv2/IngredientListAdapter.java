@@ -14,7 +14,7 @@ import java.util.List;
 public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.MyViewHolder> {
     private Context context;
     private List<Ingredient> ingredientList;
-    private List<Recipes> recipesList;
+    private boolean fromRecipe;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, description;
@@ -29,9 +29,10 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         }
     }
 
-    public IngredientListAdapter(List<Ingredient> ingredientList, Context context) {
+    public IngredientListAdapter(List<Ingredient> ingredientList, Context context, boolean fromRecipe) {
         this.context = context;
         this.ingredientList = ingredientList;
+        this.fromRecipe = fromRecipe;
     }
 
     @Override
@@ -45,16 +46,17 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         final Ingredient ingredient = ingredientList.get(position);
         holder.name.setText(ingredient.getName());
         holder.description.setText(ingredient.getAmount() + " " + ingredient.getType());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), ShowIngredientActivity.class);
-                i.putExtra(ShowIngredientActivity.IDKEY, ingredient.getId());
-//                i.putExtra("name", ingredient.getName());
-//                i.putExtra("description", ingredient.getAmount() + " " + ingredient.getAmountType());
-                view.getContext().startActivity(i);
-            }
-        });
+        if(!fromRecipe) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(view.getContext(), ShowIngredientActivity.class);
+                    i.putExtra(ShowIngredientActivity.INGREDIENTKEY, ShowIngredientActivity.INGREDIENTKEY);
+                    i.setFlags(ingredient.getId());
+                    view.getContext().startActivity(i);
+                }
+            });
+        }
 
 
     }
