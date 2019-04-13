@@ -44,14 +44,14 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final Ingredient ingredient = ingredientList.get(position);
         holder.name.setText(ingredient.getName());
-        holder.description.setText(ingredient.getAmount() + " " + ingredient.getAmountType());
+        holder.description.setText(ingredient.getAmount() + " " + ingredient.getType());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), ShowIngredientActivity.class);
-                i.putExtra("name", ingredient.getName());
-                i.putExtra("description", ingredient.getAmount() + " " + ingredient.getAmountType());
-
+                i.putExtra(ShowIngredientActivity.IDKEY, ingredient.getId());
+//                i.putExtra("name", ingredient.getName());
+//                i.putExtra("description", ingredient.getAmount() + " " + ingredient.getAmountType());
                 view.getContext().startActivity(i);
             }
         });

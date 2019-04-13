@@ -63,7 +63,7 @@ public class DisplayRecipesActivity extends AppCompatActivity implements Recycle
     private void getRecipes() {
         if(RecipesProvider.getSize() == 0) {
             List<Ingredient> ingredientList = new ArrayList<>();
-            Ingredient i = new Ingredient("Water", 50, Ingredient.AmountType.deciliter);
+            Ingredient i = new Ingredient("Water", 50, "deciliter");
             ingredientList.add(i);
             Recipes r = new Recipes("pizza", "lekker", ingredientList);
             RecipesProvider.addItem(r);

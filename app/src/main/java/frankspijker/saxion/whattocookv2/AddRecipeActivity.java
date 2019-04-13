@@ -40,28 +40,16 @@ public class AddRecipeActivity extends AppCompatActivity {
         nameEdittext = findViewById(R.id.recipeNameEdittext);
         descriptionTextview = findViewById(R.id.recipeDescriptionTextview);
         descriptionEdittext = findViewById(R.id.recipeDescriptionEdittext);
-
-        addIngredients = findViewById(R.id.addRecipeRecyclerview);
-        addIngredients.setHasFixedSize(true);
-        ingredientList = new ArrayList<>();
-        recipe = new Recipes("", "", ingredientList);
-        ingredientList = recipe.getIngredientList();
-        mAdapter = new IngredientListAdapter(ingredientList, this);
-        layoutManager = new LinearLayoutManager(this);
-        addIngredients.setLayoutManager(layoutManager);
-        addIngredients.setItemAnimator(new DefaultItemAnimator());
-        addIngredients.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
 //        // TODO: Ingredienten toevoegen aan recepten
 //        // TODO: Custom progressbar die bijhoudt of er een naam, beschrijving en minimaal 1 ingredient is gekozen onderin.
 //        // TODO: CUSTOM VIEW PLZ
-        addIngredients.setAdapter(mAdapter);
     }
 
     public void saveRecipe(View v) {
         recipeName = nameEdittext.getText().toString();
         recipeDescription = descriptionEdittext.getText().toString();
-        recipe.setTitle(recipeName);
-        recipe.setDescription(recipeDescription);
+        ingredientList = new ArrayList<>();
+        recipe = new Recipes(recipeName, recipeDescription, ingredientList);
         RecipesProvider.addItem(recipe);
         Intent intent = new Intent(this, DisplayRecipesActivity.class);
         startActivity(intent);
@@ -70,7 +58,8 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     public void addIngredient(View v) {
         Intent intent = new Intent(this, AddIngredientActivity.class);
-        intent.putExtra("id", recipe.getId());
+        intent.putExtra(AddIngredientActivity.IDKEY, AddIngredientActivity.IDKEY);
+        intent.setFlags(recipe.getId());
         startActivity(intent);
     }
 }

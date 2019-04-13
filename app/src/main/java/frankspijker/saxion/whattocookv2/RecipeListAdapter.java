@@ -47,8 +47,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.My
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), ShowRecipeActivity.class);
-                i.putExtra(ShowRecipeActivity.NAMEKEY, recipe.getTitle());
-                i.putExtra(ShowRecipeActivity.DESCRIPTIONKEY, recipe.getDescription());
+                int idToGive = recipe.getId();
+//                i.putExtra(ShowRecipeActivity.NAMEKEY, recipe.getTitle());
+                i.putExtra(ShowRecipeActivity.IDKEY, idToGive);
                 view.getContext().startActivity(i);
             }
         });
