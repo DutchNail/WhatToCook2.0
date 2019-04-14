@@ -31,17 +31,15 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerIngredientTouchHelper.RecyclerItemTouchHelperListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-//    private static final String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
-//    private RecyclerView.Adapter mAdapter;
     private IngredientListAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<Ingredient> ingredientList;
     public Toolbar toolbar;
-    public FloatingActionButton fab;
-    private List<Recipes> recepten;
+//    public FloatingActionButton fab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
         recyclerView.setHasFixedSize(true);
 
         ingredientList = new ArrayList<>();
-        prepareIngredients();
+        prepareData();
         ingredientList = IngredientProvider.getIngredientList();
         mAdapter = new IngredientListAdapter(ingredientList, this, false);
         layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -61,23 +59,38 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
         recyclerView.setAdapter(mAdapter);
-
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerIngredientTouchHelper(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-
-        //making hhtp call and fetching ingredients json
-
     }
 
     /**
      * mathod make volley network call and parses json
      */
-    private void prepareIngredients() {
-        if(IngredientProvider.getSize() == 0) {
-            Ingredient i = new Ingredient("Water", 50, "deciliter");
-            Ingredient j = new Ingredient("Kipfilet", 300, "gram");
-            IngredientProvider.addIngredient(i);
-            IngredientProvider.addIngredient(j);
+    private void prepareData() {
+        if(RecipesProvider.getSize() == 0) {
+            List<Ingredient> empty = new ArrayList<>();
+            Recipes test = new Recipes("test", "test", empty);
+            RecipesProvider.addItem(test);
+            List<Ingredient> bamiIngredienten = new ArrayList<>();
+            bamiIngredienten.add(new Ingredient("Mienestjes", 250, "gram"));
+            bamiIngredienten.add(new Ingredient("Knoflook", 1, "pieces"));
+            bamiIngredienten.add(new Ingredient("Bamigroenten", 900, "gram"));
+            bamiIngredienten.add(new Ingredient("Eieren", 4, "pieces"));
+            Recipes Bami = new Recipes("Bami", "Snelle bami voor 4 personen.", bamiIngredienten);
+            List<Ingredient> ceasarIngredienten = new ArrayList<>();
+            ceasarIngredienten.add(new Ingredient("Grana Padona Kazen", 100, "gram"));
+            ceasarIngredienten.add(new Ingredient("Stokbrood", 1, "pieces"));
+            ceasarIngredienten.add(new Ingredient("Kropjes Babyromainesla", 900, "gram"));
+            ceasarIngredienten.add(new Ingredient("Eieren", 4, "pieces"));
+            ceasarIngredienten.add(new Ingredient("Ansjovisfilets in olie in blik", 130, "gram"));
+            Recipes ceasarSalade = new Recipes("Ceasar Salade", "Eenvoudig, maar oh zo lekker, niet voor niks een klassieker.", ceasarIngredienten);
+            List<Ingredient> druiventaartIngredienten = new ArrayList<>();
+            druiventaartIngredienten.add(new Ingredient("Monchou", 200, "gram"));
+            druiventaartIngredienten.add(new Ingredient("Witte basterdsuiker", 100, "gram"));
+            druiventaartIngredienten.add(new Ingredient("kant-en-klare taartbodem", 200, "gram"));
+            druiventaartIngredienten.add(new Ingredient("pitloze druiven", 500, "gram"));
+            Recipes druivenTaart = new Recipes("Druiventaart", "Een lekker en gezond nagerecht", druiventaartIngredienten);
+            RecipesProvider.addItem(Bami);
+            RecipesProvider.addItem(ceasarSalade);
+            RecipesProvider.addItem(druivenTaart);
         }
     }
 
@@ -88,17 +101,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
     }
 
     private void setNavigation() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), AddIngredientActivity.class);
-                startActivity(i);
-            }
-        });
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -108,30 +110,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof IngredientListAdapter.MyViewHolder) {
-            //get name
-            String name = ingredientList.get(viewHolder.getAdapterPosition()).getName();
-
-            // create backup for undo
-            final Ingredient deletedIngredient = ingredientList.get(viewHolder.getAdapterPosition());
-            final int deletedIndex = viewHolder.getAdapterPosition();
-
-            // remove ingredient
-            mAdapter.removeIngredient(viewHolder.getAdapterPosition());
-
-            // show snackbar with undo
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.my_recycler_view), name + " deleted.", Snackbar.LENGTH_LONG);
-            snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mAdapter.restoreIngredient(deletedIngredient, deletedIndex);
-                }
-            });
-            snackbar.setActionTextColor(getResources().getColor(R.color.delete_background));
-            snackbar.show();
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -162,14 +140,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerIngredien
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_ingredients) {
-            // Handle the camera action
+            //Do nothing, current page.
         } else if (id == R.id.nav_recipes) {
             Intent i = new Intent(this, DisplayRecipesActivity.class);
             startActivity(i);

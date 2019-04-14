@@ -9,6 +9,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-class ShowRecipeActivity extends AppCompatActivity implements RecyclerIngredientTouchHelper.RecyclerItemTouchHelperListener {
+public class ShowRecipeActivity extends AppCompatActivity implements RecyclerIngredientTouchHelper.RecyclerItemTouchHelperListener {
 
     public static final String NAMEKEY = "namekey";
     public static final String DESCRIPTIONKEY =  "descriptionkey";
@@ -36,8 +37,6 @@ class ShowRecipeActivity extends AppCompatActivity implements RecyclerIngredient
         setContentView(R.layout.activity_show_recipe);
 
         InformationView informationView = findViewById(R.id.recipeInformation);
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.app_name);
@@ -61,6 +60,8 @@ class ShowRecipeActivity extends AppCompatActivity implements RecyclerIngredient
         showRecipeRecyclerview.setItemAnimator(new DefaultItemAnimator());
         showRecipeRecyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
         showRecipeRecyclerview.setAdapter(showRecipeAdapter);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerIngredientTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(showRecipeRecyclerview);
     }
 
     public void addIngredientToRecipe(View v) {
@@ -78,13 +79,15 @@ class ShowRecipeActivity extends AppCompatActivity implements RecyclerIngredient
 
             // create backup for undo
             final Ingredient deletedIngredient = ingredientList.get(viewHolder.getAdapterPosition());
+            final int deletedId = deletedIngredient.getId();
             final int deletedIndex = viewHolder.getAdapterPosition();
 
             // remove ingredient
             showRecipeAdapter.removeIngredient(viewHolder.getAdapterPosition());
+            IngredientProvider.removeIngredient(deletedIngredient);
 
             // show snackbar with undo
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.my_recycler_view), name + " deleted.", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.ShowRecipeRecyclerview), name + " deleted.", Snackbar.LENGTH_LONG);
             snackbar.setAction(getString(R.string.undo), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

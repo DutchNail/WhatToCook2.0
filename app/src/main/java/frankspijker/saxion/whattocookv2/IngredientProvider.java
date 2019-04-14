@@ -23,6 +23,10 @@ class IngredientProvider {
         return ingredientList.size();
     }
 
+    public static void removeIngredient(Ingredient ingredient) {
+        ingredientList.remove(ingredient);
+    }
+
     public static void addIngredient(Ingredient ingredient) {
         ingredientList.add(ingredient);
     }

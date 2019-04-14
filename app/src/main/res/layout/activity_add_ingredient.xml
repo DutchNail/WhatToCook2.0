@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/ingredientNameTextview"
-        android:layout_width="130dp"
+        android:layout_width="143dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
@@ -52,7 +52,7 @@
 
     <TextView
         android:id="@+id/ingredientAmountTextview"
-        android:layout_width="130dp"
+        android:layout_width="143dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -61,12 +61,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingredientNameTextview" />
 
+    <TextView
+        android:id="@+id/ingredientAmountTypeTextview"
+        android:layout_width="143dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/ingredient_amount_type"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredientAmountTextview" />
+
     <EditText
         android:id="@+id/ingredientAmountEdittext"
         android:layout_width="142dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/ingredient_amount"
         android:inputType="numberDecimal"
@@ -82,18 +93,30 @@
         android:onClick="saveIngredient"
         android:text="@string/button_ingredient_add"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredientAmountTextview" />
+        app:layout_constraintTop_toBottomOf="@+id/ingredientAmountTypeTextview" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="107dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ingredientAmountEdittext"
-        app:layout_constraintTop_toBottomOf="@+id/ingredientNameEdittext" />
+        app:layout_constraintStart_toEndOf="@+id/ingredientAmountTypeTextview"
+        app:layout_constraintTop_toBottomOf="@+id/ingredientAmountEdittext" />
+
+    <frankspijker.saxion.whattocookv2.CustomProgressBar
+        android:id="@+id/addIngredientProgressbar"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addIngredientButton" />
+
 
 
 </android.support.constraint.ConstraintLayout>

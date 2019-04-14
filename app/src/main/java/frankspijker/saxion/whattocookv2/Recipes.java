@@ -31,6 +31,7 @@ public class Recipes {
                 '}';
     }
 
+    //Looks for a recipe that has the given id.
     static Recipes getRecipeById(int recipeId) {
         List<Recipes> recipes = RecipesProvider.getRecipesList();
         for (Recipes recipe: recipes) {
@@ -61,18 +62,10 @@ public class Recipes {
         this.description = description;
     }
 
+
     public List<Ingredient> getIngredientList() {
         return this.ingredientList;
     }
-
-
-    public List<Ingredient> getIngredientsFromRecipe(String title) {
-        if(this.title.equals(title)) {
-            return this.ingredientList;
-        }
-        return null;
-    }
-
 
     public void addIngredient(Ingredient i) {
         this.ingredientList.add(i);

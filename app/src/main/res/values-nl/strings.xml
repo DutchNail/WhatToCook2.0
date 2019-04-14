@@ -13,4 +13,7 @@
     <string name="button_ingredient_add">Ingredient toevoegen</string>
     <string name="button_recipe_add">Recept toevoegen</string>
     <string name="undo">ONGEDAAN MAKEN</string>
+    <string name="recipes">recepten</string>
+    <string name="ingredient">ingredienten</string>
+    <string name="ingredient_amount_type">Soort hoeveelheid</string>
 </resources>

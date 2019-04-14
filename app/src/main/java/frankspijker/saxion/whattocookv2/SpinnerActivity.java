@@ -9,7 +9,7 @@ public class SpinnerActivity extends Activity implements AdapterView.OnItemSelec
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Ingredient.AmountType amountType = (Ingredient.AmountType) parent.getItemAtPosition(position);
+
     }
 
     public void onNothingSelected(AdapterView<?> parent) {

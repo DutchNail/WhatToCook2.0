@@ -17,6 +17,9 @@ public class RecipesProvider {
 
     public static void addItem(Recipes recipe) {
         recipesList.add(recipe);
+        for (Ingredient ingredient: recipe.getIngredientList()) {
+            IngredientProvider.addIngredient(ingredient);
+        }
     }
 
     public static List<Recipes> getRecipesList() {
@@ -25,6 +28,13 @@ public class RecipesProvider {
 
     public static int getSize() {
         return recipesList.size();
+    }
+
+    public static void removeRecipe(Recipes recipe) {
+        for (Ingredient ingredient : recipe.getIngredientList()) {
+            IngredientProvider.removeIngredient(ingredient);
+        }
+        recipesList.remove(recipe);
     }
 
     public static void setRecipesList(List<Recipes> recipesList) {

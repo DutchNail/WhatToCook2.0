@@ -8,27 +8,16 @@ public class Ingredient {
     private int id;
     private String name;
     private double amount;
+    private String type;
+
 
     public int getId() {
         return id;
     }
 
-    public enum AmountType {
-        Kilogram, Gram, Liter, Mililiter,
-        centiliter, deciliter, miligram,
-        gram, stuks
-    }
-    private AmountType amountType;
-    private String type;
+    public String getType() { return type; }
 
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    public void setType(String type) { this.type = type; }
 
     public Ingredient(String name, double amount, String type) {
         this.id = idcounter;
@@ -45,7 +34,7 @@ public class Ingredient {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", amount=" + amount +
-                ", amountType=" + amountType +
+                ", type='" + type + '\'' +
                 '}';
     }
 
@@ -75,11 +64,4 @@ public class Ingredient {
         this.amount = amount;
     }
 
-    public AmountType getAmountType() {
-        return this.amountType;
-    }
-
-    public void setAmountType(AmountType amountType) {
-        this.amountType = amountType;
-    }
 }

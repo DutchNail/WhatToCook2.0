@@ -45,7 +45,6 @@ public class DisplayRecipesActivity extends AppCompatActivity implements Recycle
         recyclerView.setHasFixedSize(true);
 
         recipesList = new ArrayList<>();
-        getRecipes();
         recipesList = RecipesProvider.getRecipesList();
         mAdapter = new RecipeListAdapter(this);
         layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -53,22 +52,14 @@ public class DisplayRecipesActivity extends AppCompatActivity implements Recycle
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
         recyclerView.setAdapter(mAdapter);
-
+        //touchhelper for onswipe.
         ItemTouchHelper.SimpleCallback simpleCallback = new RecyclerRecipeTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
 
         // voortgangsbalkje met ingredienten afvinken?
     }
 
-    private void getRecipes() {
-        if(RecipesProvider.getSize() == 0) {
-            List<Ingredient> ingredientList = new ArrayList<>();
-            Ingredient i = new Ingredient("Water", 50, "deciliter");
-            ingredientList.add(i);
-            Recipes r = new Recipes("pizza", "lekker", ingredientList);
-            RecipesProvider.addItem(r);
-        }
-    }
+
 
     private void setNavigation() {
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -144,26 +135,30 @@ public class DisplayRecipesActivity extends AppCompatActivity implements Recycle
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-            //get name
-            String name = recipesList.get(viewHolder.getAdapterPosition()).getTitle();
+        //get name
+        String name = recipesList.get(viewHolder.getAdapterPosition()).getTitle();
 
-            // create backup for undo
-            final Recipes deletedRecipe = recipesList.get(viewHolder.getAdapterPosition());
-            final int deletedIndex = viewHolder.getAdapterPosition();
+        // create backup for undo
+        final Recipes deletedRecipe = recipesList.get(viewHolder.getAdapterPosition());
+        final int deletedIndex = viewHolder.getAdapterPosition();
 
-            // remove ingredient
-            mAdapter.removeRecipe(viewHolder.getAdapterPosition());
+        // remove recipe & ingredients in that recipe
+        for (Ingredient ingredient : deletedRecipe.getIngredientList()) {
+            IngredientProvider.removeIngredient(ingredient);
+        }
+        mAdapter.removeRecipe(viewHolder.getAdapterPosition());
 
-            // show snackbar with undo
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.my_recycler_view), name + " deleted.", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mAdapter.restoreRecipe(deletedRecipe, deletedIndex);
-                }
-            });
-            snackbar.setActionTextColor(getResources().getColor(R.color.delete_background));
-            snackbar.show();
+
+        // show snackbar with undo
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.my_recycler_view), name + " deleted.", Snackbar.LENGTH_LONG);
+        snackbar.setAction("UNDO", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAdapter.restoreRecipe(deletedRecipe, deletedIndex);
+            }
+        });
+        snackbar.setActionTextColor(getResources().getColor(R.color.delete_background));
+        snackbar.show();
     }
 
     @Override
